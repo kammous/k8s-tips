@@ -1,5 +1,7 @@
 # Install and configure MetalLB on KIND cluster
+
 ## Setup a k8s cluster with KIND
+Refer to [KIND Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start) for KIND installation steps.
 
 ## Deploy and expose echo-server
 ```
@@ -8,6 +10,7 @@ $ kubectl expose deployment echo --type=LoadBalancer
 $ kubectl get svc echo
 ```
 ## Install MetalLB
+As per [MetalLB installation guide](https://metallb.universe.tf/installation/), you just need to run command below:
 ```
 $ kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.1/manifests/metallb.yaml
 ```
