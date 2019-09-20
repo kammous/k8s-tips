@@ -3,22 +3,26 @@
 
 ## Deploy and expose echo-server
 ```
-kubectl run echo --image=inanimate/echo-server --replicas=3 --port=8080
-kubectl expose deployment echo --type=LoadBalancer
-kubectl get svc echo
+$ kubectl run echo --image=inanimate/echo-server --replicas=3 --port=8080
+$ kubectl expose deployment echo --type=LoadBalancer
+$ kubectl get svc echo
 ```
 ## Install MetalLB
 ```
-kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.1/manifests/metallb.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.1/manifests/metallb.yaml
 ```
-Configure MetalLB with the appropriate IP range
+Determine subnet used by KIND nodes
 ```
-docker network inspect bridge | grep -i subnet
-kubectl apply -f metallb-cm.yaml
+$ docker network inspect bridge | grep -i subnet
+                    "Subnet": "172.17.0.0/16",
+```
+Configure MetalLB with the appropriate IP range. Refer to [IP-Calculator](http://jodies.de/ipcalc?host=172.17.0.0&mask1=16&mask2=) for subnet calculation.
+```
+$ kubectl apply -f metallb-cm.yaml
 ```
 Use EXTERNAL-IP to invoke echo service 
 
 ```
-kubectl get svc echo
-curl http://172.17.255.1:8080
+$ kubectl get svc echo
+$ curl http://172.17.255.1:8080
 ```
