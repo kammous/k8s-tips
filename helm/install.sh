@@ -3,7 +3,7 @@
 set -e
 set -x
 
-HELM_VERSION="v2.14.3"
+HELM_VERSION="v2.16.1"
 SCRIPT_FILE="get_helm.sh"
 if [ ! -f "$SCRIPT_FILE" ]; then
   curl -LO https://git.io/get_helm.sh
