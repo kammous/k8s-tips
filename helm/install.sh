@@ -1,7 +1,6 @@
 #!/bin/bash
 
-set -e
-set -x
+set -euxo pipefail
 
 HELM_VERSION="v2.16.1"
 SCRIPT_FILE="get_helm.sh"
