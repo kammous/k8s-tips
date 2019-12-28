@@ -1,6 +1,5 @@
 #!/bin/bash
-set -e
-set -x
+set -euxo pipefail
 
 METRICS_DIR="metrics-server"
 if [ ! -d "$METRICS_DIR" ]; then

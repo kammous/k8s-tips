@@ -1,7 +1,6 @@
 #/bin/sh
 
-set -e
-set -x
+set -euxo pipefail
 # install echo-server app and expose it externally with a kubernetes Service LoadBalancer
 kubectl run echo --image=inanimate/echo-server --replicas=3 --port=8080
 kubectl expose deployment echo --type=LoadBalancer

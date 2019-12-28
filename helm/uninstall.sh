@@ -1,7 +1,6 @@
 #!/bin/bash
 
-set -e
-set -x
+set -euxo pipefail
 
 helm reset
 

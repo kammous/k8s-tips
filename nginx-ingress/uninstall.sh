@@ -1,7 +1,6 @@
 #!/bin/bash
 
-set -e
-set -x
+set -euxo pipefail
 
 RELEASE_NAME="nginx"
 NS="nginx-ingress"
