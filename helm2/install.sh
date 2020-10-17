@@ -2,7 +2,7 @@
 
 set -euxo pipefail
 
-HELM_VERSION="v2.16.1"
+HELM_VERSION="v2.16.12"
 SCRIPT_FILE="get_helm.sh"
 if [ ! -f "$SCRIPT_FILE" ]; then
   curl -LO https://git.io/get_helm.sh
