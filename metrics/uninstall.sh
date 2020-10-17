@@ -1,5 +1,5 @@
 #!/bin/bash
 set -euxo pipefail
 
-cd metrics-server
-kubectl delete -f deploy/1.8+/
+kubectl delete -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.7/components.yaml
+
