@@ -62,7 +62,7 @@ runAsRoot() {
 # verifySupported checks that the os/arch combination is supported for
 # binary builds.
 verifySupported() {
-  local supported="darwin-386\ndarwin-amd64\nlinux-386\nlinux-amd64\nlinux-arm\nlinux-arm64\nlinux-ppc64le\nwindows-386\nwindows-amd64"
+  local supported="darwin-amd64\nlinux-386\nlinux-amd64\nlinux-arm\nlinux-arm64\nlinux-ppc64le\nwindows-amd64"
   if ! echo "${supported}" | grep -q "${OS}-${ARCH}"; then
     echo "No prebuilt binary for ${OS}-${ARCH}."
     echo "To build from source, go to https://github.com/helm/helm"
@@ -79,11 +79,12 @@ verifySupported() {
 checkDesiredVersion() {
   if [ "x$DESIRED_VERSION" == "x" ]; then
     # Get tag from release URL
-    local latest_release_url="https://github.com/helm/helm/releases/latest"
+    local release_url="https://github.com/helm/helm/releases"
     if type "curl" > /dev/null; then
-      TAG=$(curl -Ls -o /dev/null -w %{url_effective} $latest_release_url | grep -oE "[^/]+$" )
+
+      TAG=$(curl -Ls $release_url | grep 'href="/helm/helm/releases/tag/v2.[0-9]*.[0-9]*\"' | grep -v no-underline | head -n 1 | cut -d '"' -f 2 | awk '{n=split($NF,a,"/");print a[n]}' | awk 'a !~ $0{print}; {a=$0}')
     elif type "wget" > /dev/null; then
-      TAG=$(wget $latest_release_url --server-response -O /dev/null 2>&1 | awk '/^  Location: /{DEST=$2} END{ print DEST}' | grep -oE "[^/]+$")
+      TAG=$(wget $release_url -O - 2>&1 | grep 'href="/helm/helm/releases/tag/v2.[0-9]*.[0-9]*\"' | grep -v no-underline | head -n 1 | cut -d '"' -f 2 | awk '{n=split($NF,a,"/");print a[n]}' | awk 'a !~ $0{print}; {a=$0}')
     fi
   else
     TAG=$DESIRED_VERSION
@@ -174,7 +175,7 @@ fail_trap() {
 # testVersion tests the installed client to make sure it is working.
 testVersion() {
   set +e
-  HELM="$(which $PROJECT_NAME)"
+  HELM="$(command -v $PROJECT_NAME)"
   if [ "$?" = "1" ]; then
     echo "$PROJECT_NAME not found. Is $HELM_INSTALL_DIR on your "'$PATH?'
     exit 1
@@ -187,7 +188,7 @@ testVersion() {
 help () {
   echo "Accepted cli arguments are:"
   echo -e "\t[--help|-h ] ->> prints this help"
-  echo -e "\t[--version|-v <desired_version>] . When not defined it defaults to latest"
+  echo -e "\t[--version|-v <desired_version>]"
   echo -e "\te.g. --version v2.4.0  or -v latest"
   echo -e "\t[--no-sudo]  ->> install without sudo"
 }
