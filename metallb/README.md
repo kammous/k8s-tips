@@ -5,14 +5,18 @@ Refer to [KIND Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start) for 
 
 ## Deploy and expose echo-server
 ```
-$ kubectl run echo --image=inanimate/echo-server --replicas=3 --port=8080
+$ kubectl create deploy echo --image=inanimate/echo-server --replicas=3 --port=8080
 $ kubectl expose deployment echo --type=LoadBalancer
 $ kubectl get svc echo
 ```
 ## Install MetalLB
 As per [MetalLB installation guide](https://metallb.universe.tf/installation/), you just need to run command below:
-```
-$ kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.1/manifests/metallb.yaml
+```shell
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/main/manifests/namespace.yaml
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/main/manifests/metallb.yaml
+# On first install only
+kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+kubectl -n metallb-system wait --timeout=300s --for=condition=Ready pod --all
 ```
 Determine subnet used by KIND nodes
 ```
