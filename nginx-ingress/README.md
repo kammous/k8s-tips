@@ -1,4 +1,4 @@
-# Helm chart based
+# Helm chart based setup
 ## Install
 ```
 ./install-lb.sh
@@ -7,7 +7,7 @@
 ```
 ./uninstall.sh
 ```
-# Manifest based install
+# Manifest based setup
 ## Install
 ```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/baremetal/deploy.yaml
