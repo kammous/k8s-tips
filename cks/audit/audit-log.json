@@ -1,0 +1,100 @@
+{
+    "kind": "Event",
+    "apiVersion": "audit.k8s.io/v1",
+    "level": "Metadata",
+    "auditID": "06b317a4-5ac8-4ac9-adda-0ab8ad915880",
+    "stage": "RequestReceived",
+    "requestURI": "/api/v1/namespaces/default/secrets?fieldManager=kubectl-create",
+    "verb": "create",
+    "user": {
+        "username": "kubernetes-admin",
+        "groups": [
+            "system:masters",
+            "system:authenticated"
+        ]
+    },
+    "sourceIPs": [
+        "172.18.0.1"
+    ],
+    "userAgent": "kubectl/v1.19.1 (linux/amd64) kubernetes/206bcad",
+    "objectRef": {
+        "resource": "secrets",
+        "namespace": "default",
+        "apiVersion": "v1"
+    },
+    "requestReceivedTimestamp": "2021-08-22T11:04:50.750725Z",
+    "stageTimestamp": "2021-08-22T11:04:50.750725Z"
+}
+    {
+    "kind": "Event",
+    "apiVersion": "audit.k8s.io/v1",
+    "level": "Metadata",
+    "auditID": "06b317a4-5ac8-4ac9-adda-0ab8ad915880",
+    "stage": "ResponseComplete",
+    "requestURI": "/api/v1/namespaces/default/secrets?fieldManager=kubectl-create",
+    "verb": "create",
+    "user": {
+        "username": "kubernetes-admin",
+        "groups": [
+            "system:masters",
+            "system:authenticated"
+        ]
+    },
+    "sourceIPs": [
+        "172.18.0.1"
+    ],
+    "userAgent": "kubectl/v1.19.1 (linux/amd64) kubernetes/206bcad",
+    "objectRef": {
+        "resource": "secrets",
+        "namespace": "default",
+        "name": "allo",
+        "apiVersion": "v1"
+    },
+    "responseStatus": {
+        "metadata": {},
+        "code": 201
+    },
+    "requestReceivedTimestamp": "2021-08-22T11:04:50.750725Z",
+    "stageTimestamp": "2021-08-22T11:04:50.761462Z",
+    "annotations": {
+        "authorization.k8s.io/decision": "allow",
+        "authorization.k8s.io/reason": ""
+    }
+}
+{"kind":"Event","apiVersion":"audit.k8s.io/v1","level":"Metadata","auditID":"8d0a82cf-cc3f-46dc-914f-32466243b45e","stage":"RequestReceived","requestURI":"/api/v1/namespaces/default/secrets/allo?fieldManager=kubectl-edit","verb":"patch","user":{"username":"kubernetes-admin","groups":["system:masters","system:authenticated"]},"sourceIPs":["172.18.0.1"],"userAgent":"kubectl/v1.19.1 (linux/amd64) kubernetes/206bcad","objectRef":{"resource":"secrets","namespace":"default","name":"allo","apiVersion":"v1"},"requestReceivedTimestamp":"2021-08-22T11:25:49.714863Z","stageTimestamp":"2021-08-22T11:25:49.714863Z"}
+    {
+        "kind": "Event",
+        "apiVersion": "audit.k8s.io/v1",
+        "level": "Metadata",
+        "auditID": "8d0a82cf-cc3f-46dc-914f-32466243b45e",
+        "stage": "ResponseComplete",
+        "requestURI": "/api/v1/namespaces/default/secrets/allo?fieldManager=kubectl-edit",
+        "verb": "patch",
+        "user": {
+            "username": "kubernetes-admin",
+            "groups": [
+                "system:masters",
+                "system:authenticated"
+            ]
+        },
+        "sourceIPs": [
+            "172.18.0.1"
+        ],
+        "userAgent": "kubectl/v1.19.1 (linux/amd64) kubernetes/206bcad",
+        "objectRef": {
+            "resource": "secrets",
+            "namespace": "default",
+            "name": "allo",
+            "apiVersion": "v1"
+        },
+        "responseStatus": {
+            "metadata": {},
+            "code": 200
+        },
+        "requestReceivedTimestamp": "2021-08-22T11:25:49.714863Z",
+        "stageTimestamp": "2021-08-22T11:25:49.769968Z",
+        "annotations": {
+            "authorization.k8s.io/decision": "allow",
+            "authorization.k8s.io/reason": ""
+        }
+    }
