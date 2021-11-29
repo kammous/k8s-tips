@@ -308,6 +308,47 @@ sudo rm /etc/apparmor.d/usr.bin.curl
 sudo rm /var/lib/apparmor/cache/usr.bin.curl
 ```
 
+**Secure a pod with AppArmor on Kubernetes:**
+- Create docker-nginx profile on worker node
+```
+curl -LO https://raw.githubusercontent.com/killer-sh/cks-course-environment/master/course-content/system-hardening/kernel-hardening-tools/apparmor/profile-docker-nginx
+sudo mv profile-docker-nginx /etc/apparmor.d/
+```
+- load the profile 
+```shell
+sudo apparmor_parser -a /etc/apparmor.d/profile-docker-nginx
+```
+- Create a pod and add AppArmor annotation pointing to profile name (not profile file name)
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    container.apparmor.security.beta.kubernetes.io/secure: "localhost/docker-nginx"
+  labels:
+    run: secure
+  name: secure
+spec:
+  containers:  - image: nginx
+    name: secure
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+```
+- Create nginx pod using above yaml file:
+```
+kubectl apply -f secure.yaml
+```
+
+- Open a `bash` inside `nginx` pod and try to execute some denied commands by `AppArmor` like `ssh` and `touch`:
+```bash
+root@cks-master:~/cks# kubectl exec -it secure -- bash
+root@secure:/# sh
+bash: /bin/sh: Permission denied
+root@secure:/# touch /root/test
+touch: cannot touch '/root/test': Permission denied
+```
 **AppArmor links:**
 https://kubernetes.io/docs/tutorials/clusters/apparmor/
 https://doc.ubuntu-fr.org/apparmor#installation
